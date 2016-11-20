@@ -1,2 +1,2 @@
 #!/bin/sh
-blender --python synth.py cube.dae
+blender --python synth.py cube.blend
