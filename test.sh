@@ -1,2 +1,3 @@
 #!/bin/sh
-blender --python synth.py cube.blend
+blender --background --python synth.py -o //out.png -f 1 cube.blend
+iceweasel out.png*
