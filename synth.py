@@ -42,8 +42,10 @@ def set_mode(mode):
 
 def render_mode(mode):
     set_mode(mode)
-    bpy.ops.render.render(write_still=True)
-    os.system("iceweasel /tmp/.png")
+    path = 'render_' + mode + '.png'
+    bpy.ops.render.render()
+    bpy.data.images["Render Result"].save_render(filepath=path)
+    os.system("iceweasel " + path)
 
 def render_frame():
     camera_rotate()
