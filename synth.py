@@ -1,4 +1,4 @@
-import bpy, random
+import bpy, random, os
 
 def euler_rotate(bone):
     bone.rotation_mode = 'XYZ'
@@ -44,5 +44,9 @@ for bone in model.pose.bones:
 
 set_mode("parts")
 bpy.ops.render.render(write_still=True)
+os.system("iceweasel /tmp/.png")
+set_mode("depth")
+bpy.ops.render.render(write_still=True)
+os.system("iceweasel /tmp/.png")
 
 print("Scene ready for render!")
