@@ -10,12 +10,15 @@ def euler_rotate(bone):
 for obj in bpy.data.objects:
     if obj.type == 'CAMERA':
         # TODO: rotate camera randomly, according to paper
+        obj.rotation_mode = 'XYZ'
+        obj.rotation_euler = [3.14/3, 0, 0]
+        obj.location = [0.0, -4.0, 3.0]
         pass
     
     # TODO: generalize to other models
     if obj.name == 'MaleArm':
         obj.rotation_mode = 'XYZ'
-        obj.rotation_euler = [0, 0, random.gauss(3.14/4, 3.14/8)]
+        obj.rotation_euler = [0, 0, random.gauss(0, 3.14/8)]
 
         for bone in obj.pose.bones:
             print(bone.name)
