@@ -45,9 +45,8 @@ def render_mode(mode, count):
     path = 'render_' + str(count) + "_" + mode + '.png'
     bpy.ops.render.render()
     bpy.data.images["Render Result"].save_render(filepath=path)
-    os.system("iceweasel " + path)
 
-def render_frame():
+def render_frame(count):
     camera_rotate()
 
     # TODO: generalize to other models
@@ -57,7 +56,8 @@ def render_frame():
     model_scale(model)
     random_skeleton(model)
 
-    render_mode("parts", 0)
-    render_mode("depth", 0)
+    render_mode("parts", count)
+    render_mode("depth", count)
 
-render_frame()
+for i in range(0, 1):
+    render_frame(i)
