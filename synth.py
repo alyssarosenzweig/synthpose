@@ -7,9 +7,9 @@ rad2deg = 360 / 6.28
 def euler_rotate(bone):
     bone.rotation_mode = 'XYZ'
     bone.rotation_euler = [
-            random.uniform(-2.5, +2.5),
-            random.uniform(-2.5, +2.5),
-            random.uniform(-2.5, +2.5)]
+            random.gauss(0, 1),
+            random.gauss(0, 1),
+            random.gauss(0, 1)]
 
 # randomize camera location a bit
 for obj in bpy.data.objects:
