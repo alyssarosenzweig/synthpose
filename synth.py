@@ -1,6 +1,27 @@
 import bpy, random, os
 
-def euler_rotate(bone):
+def camera_rotate():
+    # TODO: rotate camera randomly, according to paper
+    camera = bpy.data.objects["Camera"]
+    camera.rotation_mode = 'XYZ'
+    camera.rotation_euler = [3.14/3, 0, 0]
+    camera.location = [0.0, -4.0, 3.0]
+
+def model_rotate(model):
+    model.rotation_mode = 'XYZ'
+    model.rotation_euler = [0, 0, random.gauss(0, 3.14/8)]
+
+def model_scale(model):
+    model.scale[0] = random.gauss(1, 0.15) # random weight
+    model.scale[1] = random.gauss(1, 0.15) # random, uh, depth
+    model.scale[2] = random.gauss(1, 0.15) # random height
+
+def random_skeleton(model):
+    for bone in model.pose.bones:
+        if bone.name.split(".")[0] in ["Upperarm", "Lowerarm", "Thigh", "Shin", "Hand", "Fingers1", "Fingers2"]:
+            bone_random_rotate(bone)
+
+def bone_random_rotate(bone):
     bone.rotation_mode = 'XYZ'
     bone.rotation_euler = [
             random.gauss(0, 0.25),
@@ -24,28 +45,17 @@ def render_mode(mode):
     bpy.ops.render.render(write_still=True)
     os.system("iceweasel /tmp/.png")
 
-# TODO: rotate camera randomly, according to paper
-camera = bpy.data.objects["Camera"]
-camera.rotation_mode = 'XYZ'
-camera.rotation_euler = [3.14/3, 0, 0]
-camera.location = [0.0, -4.0, 3.0]
-    
-# TODO: generalize to other models
-model = bpy.data.objects["MaleArm"]
+def render_frame():
+    camera_rotate()
 
-# random rotation of person
-model.rotation_mode = 'XYZ'
-model.rotation_euler = [0, 0, random.gauss(0, 3.14/8)]
+    # TODO: generalize to other models
+    model = bpy.data.objects["MaleArm"]
 
-model.scale[0] = random.gauss(1, 0.15) # random weight
-model.scale[1] = random.gauss(1, 0.15) # random, uh, depth
-model.scale[2] = random.gauss(1, 0.15) # random height
+    model_rotate(model)
+    model_scale(model)
+    random_skeleton(model)
 
-for bone in model.pose.bones:
-    print(bone.name)
+    render_mode("parts")
+    render_mode("depth")
 
-    if bone.name.split(".")[0] in ["Upperarm", "Lowerarm", "Thigh", "Shin", "Hand", "Fingers1", "Fingers2"]:
-        euler_rotate(bone)
-
-render_mode("parts")
-render_mode("depth")
+render_frame()
