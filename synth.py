@@ -34,11 +34,19 @@ def set_mode(mode):
     if mode == "depth":
         mat.use_textures[0] = False
         mat.use_textures[1] = True
+        mat.use_textures[2] = False
         bpy.data.worlds[0].mist_settings.use_mist = True
     elif mode == "parts":
         mat.use_textures[0] = True
         mat.use_textures[1] = False
+        mat.use_textures[2] = False
         bpy.data.worlds[0].mist_settings.use_mist = False
+    elif mode == "rgb":
+        mat.use_textures[0] = False
+        mat.use_textures[1] = False
+        mat.use_textures[2] = True
+        bpy.data.worlds[0].mist_settings.use_mist = False
+
 
 def render_mode(mode, count):
     set_mode(mode)
@@ -58,6 +66,7 @@ def render_frame(count):
 
     render_mode("parts", count)
     render_mode("depth", count)
+    render_mode("rgb", count)
 
 for i in range(0, 1):
     render_frame(i)
