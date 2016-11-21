@@ -17,8 +17,13 @@ for obj in bpy.data.objects:
     
     # TODO: generalize to other models
     if obj.name == 'MaleArm':
+        # random rotation of person
         obj.rotation_mode = 'XYZ'
         obj.rotation_euler = [0, 0, random.gauss(0, 3.14/8)]
+
+        obj.scale[0] = random.gauss(1, 0.15) # random weight
+        obj.scale[1] = random.gauss(1, 0.15) # random, uh, depth
+        obj.scale[2] = random.gauss(1, 0.15) # random height
 
         for bone in obj.pose.bones:
             print(bone.name)
