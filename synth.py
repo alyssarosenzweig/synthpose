@@ -19,6 +19,11 @@ def set_mode(mode):
         mat.use_textures[1] = False
         bpy.data.worlds[0].mist_settings.use_mist = False
 
+def render_mode(mode):
+    set_mode(mode)
+    bpy.ops.render.render(write_still=True)
+    os.system("iceweasel /tmp/.png")
+
 # TODO: rotate camera randomly, according to paper
 camera = bpy.data.objects["Camera"]
 camera.rotation_mode = 'XYZ'
@@ -42,11 +47,5 @@ for bone in model.pose.bones:
     if bone.name.split(".")[0] in ["Upperarm", "Lowerarm", "Thigh", "Shin", "Hand", "Fingers1", "Fingers2"]:
         euler_rotate(bone)
 
-set_mode("parts")
-bpy.ops.render.render(write_still=True)
-os.system("iceweasel /tmp/.png")
-set_mode("depth")
-bpy.ops.render.render(write_still=True)
-os.system("iceweasel /tmp/.png")
-
-print("Scene ready for render!")
+render_mode("parts")
+render_mode("depth")
