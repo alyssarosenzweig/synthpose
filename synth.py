@@ -40,9 +40,9 @@ def set_mode(mode):
         mat.use_textures[1] = False
         bpy.data.worlds[0].mist_settings.use_mist = False
 
-def render_mode(mode):
+def render_mode(mode, count):
     set_mode(mode)
-    path = 'render_' + mode + '.png'
+    path = 'render_' + str(count) + "_" + mode + '.png'
     bpy.ops.render.render()
     bpy.data.images["Render Result"].save_render(filepath=path)
     os.system("iceweasel " + path)
@@ -57,7 +57,7 @@ def render_frame():
     model_scale(model)
     random_skeleton(model)
 
-    render_mode("parts")
-    render_mode("depth")
+    render_mode("parts", 0)
+    render_mode("depth", 0)
 
 render_frame()
