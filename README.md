@@ -17,3 +17,6 @@ synthpose is known to work on Debian Stretch (GNU/Linux) with blender 2.77. Othe
 ![Sample RGB image](samples/render_8_rgb.png)
 
 Competent texture artists wanted :-)
+
+# Licensing
+The model is licensed under a dual GPL and CC BY-SA license, by [Francisco Athens](https://github.com/FreeLikeGNU). synthpose itself is also released as GPLv3.
