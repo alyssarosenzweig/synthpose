@@ -50,7 +50,7 @@ def set_mode(mode):
 
 def render_mode(mode, prefix, count):
     set_mode(mode)
-    path = prefix + + 'render_' + str(count) + "_" + mode + '.png'
+    path = prefix + 'render_' + str(count) + "_" + mode + '.png'
     bpy.ops.render.render()
     bpy.data.images["Render Result"].save_render(filepath=path)
 
