@@ -1,5 +1,9 @@
 import bpy, random, os
 
+# modify these as needed
+OUTPUT_DIR = "samples/"
+COUNT      = 1
+
 def camera_rotate():
     # TODO: rotate camera randomly, according to paper
     camera = bpy.data.objects["Camera"]
@@ -47,7 +51,6 @@ def set_mode(mode):
         mat.use_textures[2] = True
         bpy.data.worlds[0].mist_settings.use_mist = False
 
-
 def render_mode(mode, prefix, count):
     set_mode(mode)
     path = prefix + 'render_' + str(count) + "_" + mode + '.png'
@@ -64,9 +67,9 @@ def render_frame(count):
     model_scale(model)
     random_skeleton(model)
 
-    render_mode("parts", "samples/", count)
-    render_mode("depth", "samples/", count)
-    render_mode("rgb", "samples/", count)
+    render_mode("parts", OUTPUT_DIR, count)
+    render_mode("depth", OUTPUT_DIR, count)
+    render_mode("rgb",   OUTPUT_DIR, count)
 
-for i in range(0, 1):
+for i in range(0, COUNT):
     render_frame(i)
