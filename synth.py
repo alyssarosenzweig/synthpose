@@ -18,15 +18,15 @@ def model_scale(model):
 
 def random_skeleton(model):
     for bone in model.pose.bones:
-        if bone.name.split(".")[0] in ["Upperarm", "Lowerarm", "Thigh", "Shin", "Hand", "Fingers1", "Fingers2"]:
-            bone_random_rotate(bone)
+        if bone.name.split(".")[0] in ["Upperarm", "Lowerarm", "Thigh", "Shin"]:
+            bone_random_rotate(bone, bone.name)
 
-def bone_random_rotate(bone):
+def bone_random_rotate(bone, name):
     bone.rotation_mode = 'XYZ'
     bone.rotation_euler = [
-            random.gauss(0, 0.25),
-            random.gauss(0, 0.25),
-            random.gauss(0, 0.1)]
+            random.uniform(-1, 1),
+            0,
+            random.uniform(-1, 1)]
 
 def set_mode(mode):
     mat = bpy.data.materials["MaleSkin"]
