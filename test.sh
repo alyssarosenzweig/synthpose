@@ -1,2 +1,2 @@
 #!/bin/sh
-blender human-depth.blend --python synth.py -b
+blender -t 1 human-depth.blend --python synth.py -b
