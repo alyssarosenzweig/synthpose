@@ -48,9 +48,9 @@ def set_mode(mode):
         bpy.data.worlds[0].mist_settings.use_mist = False
 
 
-def render_mode(mode, count):
+def render_mode(mode, prefix, count):
     set_mode(mode)
-    path = 'render_' + str(count) + "_" + mode + '.png'
+    path = prefix + + 'render_' + str(count) + "_" + mode + '.png'
     bpy.ops.render.render()
     bpy.data.images["Render Result"].save_render(filepath=path)
 
@@ -64,9 +64,9 @@ def render_frame(count):
     model_scale(model)
     random_skeleton(model)
 
-    render_mode("parts", count)
-    render_mode("depth", count)
-    render_mode("rgb", count)
+    render_mode("parts", "samples/", count)
+    render_mode("depth", "samples/", count)
+    render_mode("rgb", "samples/", count)
 
 for i in range(0, 1):
     render_frame(i)
