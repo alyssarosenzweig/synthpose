@@ -2,7 +2,7 @@ import bpy, random, os
 
 # modify these as needed
 OUTPUT_DIR = os.environ.get("OUTPUT_DIR") or "samples/"
-COUNT      = os.environ.get("COUNT")      or 1
+COUNT      = int(os.environ.get("COUNT")) or 1
 
 def camera_rotate():
     # TODO: rotate camera randomly, according to paper
