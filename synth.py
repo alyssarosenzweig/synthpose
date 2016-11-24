@@ -16,9 +16,10 @@ def model_rotate(model):
     model.rotation_euler = [0, 0, random.gauss(0, 3.14/8)]
 
 def model_scale(model):
-    model.scale[0] = random.gauss(1, 0.15) # random weight
-    model.scale[1] = random.gauss(1, 0.15) # random, uh, depth
-    model.scale[2] = random.gauss(1, 0.15) # random height
+    coefficient = random.gauss(1.5, 0.5)
+    model.scale[0] = random.gauss(coefficient, 0.15) # random weight
+    model.scale[1] = random.gauss(coefficient, 0.15) # random, uh, depth
+    model.scale[2] = random.gauss(coefficient, 0.15) # random height
 
 def random_skeleton(model):
     for bone in model.pose.bones:
