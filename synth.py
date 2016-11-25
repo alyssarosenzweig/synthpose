@@ -11,6 +11,9 @@ def camera_rotate():
     camera.rotation_euler = [3.14/3, 0, 0]
     camera.location = [0.0, -4.0, 3.0]
 
+def model_translate(model):
+    model.location[2] = random.gauss(-2, -0.25)
+
 def model_rotate(model):
     model.rotation_mode = 'XYZ'
     model.rotation_euler = [0, 0, random.gauss(0, 3.14/8)]
@@ -64,6 +67,7 @@ def render_frame(count):
     # TODO: generalize to other models
     model = bpy.data.objects["MaleArm"]
 
+    model_translate(model)
     model_rotate(model)
     model_scale(model)
     random_skeleton(model)
