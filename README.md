@@ -4,7 +4,7 @@
 
 # Usage
 
-Modify the environmental variables `OUTPUT_DIR` (the directory to output to, ending with a trailing slash) and `COUNT` (the number of samples to generate as desired) upon invoking `test.sh`.
+Modify the environmental variables `SYNTHPOSE_OUTPUT_DIR` (the directory to output to, ending with a trailing slash) and `SYNTHPOSE_COUNT` (the number of samples to generate as desired) upon invoking `test.sh`.
 
 By default, synthpose is single-threaded and is intended to be used with multiple instances in parallel for multicore machines. Note OUTPUT_DIR should be different per core for this use case, to avoid file name collisions.
 
