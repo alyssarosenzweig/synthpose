@@ -71,14 +71,17 @@ def space_convert(mat):
     s = bpy.context.scene.render.resolution_percentage / 100
     return [projected.x * bpy.context.scene.render.resolution_x * s, projected.y * bpy.context.scene.render.resolution_y * s]
 
+def project(j):
+    mat = bpy.data.objects["MaleArm"].matrix_world
+    bone = bpy.data.objects["MaleArm"].pose.bones[j]
+    return space_convert(mat * bone.matrix)
+
 def export_json(prefix, count):
     f = open(prefix + "render_" + str(count) + "_skeleton.json", "w")
     
-    mat = bpy.data.objects["MaleArm"].matrix_world
-    bone = bpy.data.objects["MaleArm"].pose.bones["Head"]
-    skeleton = { "head": space_convert(mat * bone.matrix) }
+    skeleton = { "head": "Head", "lhand": "Hand.Left", "rhand": "Hand.Right"}
 
-    f.write(json.dumps(skeleton))
+    f.write(json.dumps({k: project(v) for k, v in skeleton.items()}))
     f.close()
 
 def render_frame(count):
