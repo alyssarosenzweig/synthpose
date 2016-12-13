@@ -1,4 +1,4 @@
-import bpy, random, os
+import bpy, bpy_extras, json, random, os
 
 # modify these as needed
 OUTPUT_DIR = os.environ.get("SYNTHPOSE_OUTPUT_DIR") or "samples/"
@@ -61,6 +61,47 @@ def render_mode(mode, prefix, count):
     bpy.ops.render.render()
     bpy.data.images["Render Result"].save_render(filepath=path)
 
+# see https://blender.stackexchange.com/questions/882/how-to-find-image-coordinates-of-the-rendered-vertex
+def space_convert(mat):
+    coord = mat.to_translation()
+    print(coord)
+
+    projected = bpy_extras.object_utils.world_to_camera_view(bpy.context.scene, bpy.data.objects["Camera"], coord)
+
+    s = bpy.context.scene.render.resolution_percentage / 100
+    return [projected.x * bpy.context.scene.render.resolution_x * s, projected.y * bpy.context.scene.render.resolution_y * s]
+
+def project(j):
+    mat = bpy.data.objects["MaleArm"].matrix_world
+    bone = bpy.data.objects["MaleArm"].pose.bones[j]
+    return space_convert(mat * bone.matrix)
+
+def export_json(prefix, count):
+    f = open(prefix + "render_" + str(count) + "_skeleton.json", "w")
+    
+    skeleton = {
+            "head": "Head",
+
+            "lhand": "Hand.Left",
+            "rhand": "Hand.Right",
+            "lshoulder": "Upperarm.Left",
+            "rshoulder": "Upperarm.Right",
+            "lelbow": "Forearm.Left",
+            "relbow": "Forearm.Right",
+
+            "hip": "Hip",
+
+            "lpelvis": "Thigh.Left",
+            "rpelvis": "Thigh.Right",
+            "lknee": "Shin.Left",
+            "rknee": "Shin.Right",
+            "lfoot": "Foot.Left",
+            "rfoot": "Foot.Right"
+    }
+
+    f.write(json.dumps({k: project(v) for k, v in skeleton.items()}))
+    f.close()
+
 def render_frame(count):
     camera_rotate()
 
@@ -75,6 +116,7 @@ def render_frame(count):
     render_mode("parts", OUTPUT_DIR, count)
     render_mode("depth", OUTPUT_DIR, count)
     render_mode("rgb",   OUTPUT_DIR, count)
+    export_json(OUTPUT_DIR, count)
 
 for i in range(0, COUNT):
     render_frame(i)
