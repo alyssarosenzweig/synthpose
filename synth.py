@@ -79,7 +79,15 @@ def project(j):
 def export_json(prefix, count):
     f = open(prefix + "render_" + str(count) + "_skeleton.json", "w")
     
-    skeleton = { "head": "Head", "lhand": "Hand.Left", "rhand": "Hand.Right"}
+    skeleton = {
+            "head": "Head",
+            "lhand": "Hand.Left",
+            "rhand": "Hand.Right",
+            "lshoulder": "Upperarm.Left",
+            "rshoulder": "Upperarm.Right",
+            "lelbow": "Forearm.Left",
+            "relbow": "Forearm.Right"
+    }
 
     f.write(json.dumps({k: project(v) for k, v in skeleton.items()}))
     f.close()
