@@ -81,12 +81,22 @@ def export_json(prefix, count):
     
     skeleton = {
             "head": "Head",
+
             "lhand": "Hand.Left",
             "rhand": "Hand.Right",
             "lshoulder": "Upperarm.Left",
             "rshoulder": "Upperarm.Right",
             "lelbow": "Forearm.Left",
-            "relbow": "Forearm.Right"
+            "relbow": "Forearm.Right",
+
+            "hip": "Hip",
+
+            "lpelvis": "Thigh.Left",
+            "rpelvis": "Thigh.Right",
+            "lknee": "Shin.Left",
+            "rknee": "Shin.Right",
+            "lfoot": "Foot.Left",
+            "rfoot": "Foot.Right"
     }
 
     f.write(json.dumps({k: project(v) for k, v in skeleton.items()}))
